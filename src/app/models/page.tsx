@@ -1,11 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/SectionHeader";
 import { GlassCard } from "@/components/GlassCard";
 import { ModelComparisonTable } from "@/components/ModelComparisonTable";
 import { models } from "@/data/models";
 import { ClaudeModel } from "@/lib/types";
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.06 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
+};
 
 const TIER_BADGE: Record<ClaudeModel["tier"], string> = {
   haiku: "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30",
@@ -152,34 +163,48 @@ export default function ModelsPage() {
       {/* Expandable Detail Cards */}
       <section>
         <h2 className="text-lg font-semibold text-slate-200 mb-4">Model Details</h2>
-        <div className="space-y-3">
+        <motion.div
+          className="space-y-3"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {models.map((model) => (
-            <ModelDetailCard key={model.id} model={model} />
+            <motion.div key={model.id} variants={itemVariants}>
+              <ModelDetailCard model={model} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Choosing a Model */}
       <section>
         <h2 className="text-lg font-semibold text-slate-200 mb-4">Choosing a Model</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {guidance.map((g) => (
-            <GlassCard key={g.tier} hover={false}>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-2xl">{g.icon}</span>
-                <h3 className={`font-semibold text-base ${g.color}`}>{g.tier}</h3>
-              </div>
-              <ul className="space-y-2">
-                {g.tips.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
-                    <span className={`${g.color} mt-0.5 flex-shrink-0`}>▸</span>
-                    {tip}
-                  </li>
-                ))}
-              </ul>
-            </GlassCard>
+            <motion.div key={g.tier} variants={itemVariants}>
+              <GlassCard hover={false}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">{g.icon}</span>
+                  <h3 className={`font-semibold text-base ${g.color}`}>{g.tier}</h3>
+                </div>
+                <ul className="space-y-2">
+                  {g.tips.map((tip, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
+                      <span className={`${g.color} mt-0.5 flex-shrink-0`}>▸</span>
+                      {tip}
+                    </li>
+                  ))}
+                </ul>
+              </GlassCard>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
     </div>
   );

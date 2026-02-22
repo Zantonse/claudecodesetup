@@ -61,9 +61,19 @@ export function Sidebar() {
         borderLeft: "none",
       }}
     >
+      {/* Animated gradient line at top */}
+      <div className="sidebar-gradient-line w-full flex-shrink-0" />
+
       {/* Logo */}
-      <div className="px-6 py-6 border-b border-white/8">
-        <Link href="/" onClick={() => setMobileOpen(false)}>
+      <div className="px-6 py-6 border-b border-white/8 relative">
+        {/* Ambient glow behind logo */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at 30% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 70%)",
+          }}
+        />
+        <Link href="/" onClick={() => setMobileOpen(false)} className="relative z-10 block">
           <h1 className="text-xl font-bold gradient-text leading-tight">
             Claude Code
           </h1>
@@ -90,7 +100,7 @@ export function Sidebar() {
                     onClick={() => setMobileOpen(false)}
                     className={`flex-1 flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                       sectionActive
-                        ? "bg-primary-600/20 text-primary-400 shadow-[0_0_12px_rgba(124,58,237,0.2)]"
+                        ? "bg-primary-600/20 text-primary-400 shadow-[0_0_16px_rgba(124,58,237,0.25)] border-l-2 border-violet-500/70 pl-[10px]"
                         : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
                     }`}
                   >
@@ -130,7 +140,7 @@ export function Sidebar() {
                             onClick={() => setMobileOpen(false)}
                             className={`block px-3 py-1.5 rounded-lg text-sm transition-all duration-150 ${
                               childActive
-                                ? "bg-primary-600/20 text-primary-400 shadow-[0_0_8px_rgba(124,58,237,0.15)]"
+                                ? "bg-primary-600/20 text-primary-400 shadow-[0_0_10px_rgba(124,58,237,0.2)] border-l-2 border-violet-400/60 pl-[10px]"
                                 : "text-slate-500 hover:text-slate-200 hover:bg-white/5"
                             }`}
                           >
@@ -152,7 +162,7 @@ export function Sidebar() {
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                 active
-                  ? "bg-primary-600/20 text-primary-400 shadow-[0_0_12px_rgba(124,58,237,0.2)]"
+                  ? "bg-primary-600/20 text-primary-400 shadow-[0_0_16px_rgba(124,58,237,0.25)] border-l-2 border-violet-500/70 pl-[10px]"
                   : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
               }`}
             >
