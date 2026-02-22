@@ -1,9 +1,14 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const projectRoot = import.meta.dirname;
+
 const nextConfig: NextConfig = {
   turbopack: {
-    root: path.resolve(__dirname),
+    root: projectRoot,
+    resolveAlias: {
+      tailwindcss: path.resolve(projectRoot, "node_modules/tailwindcss"),
+    },
   },
 };
 
