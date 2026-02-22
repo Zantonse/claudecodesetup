@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import type React from "react";
 import { motion } from "framer-motion";
 import { IdeaCard } from "@/components/ideas/IdeaCard";
 import type { ProjectIdea, ViewMode } from "@/lib/types";
@@ -9,6 +10,9 @@ interface IdeaGridProps {
   ideas: ProjectIdea[];
   viewMode: ViewMode;
   onSelectIdea: (idea: ProjectIdea) => void;
+  // Optional render-prop slots threaded down to IdeaCard (Task 12: status tracking)
+  getStatusBadge?: (idea: ProjectIdea) => React.ReactNode;
+  getActionSlot?: (idea: ProjectIdea) => React.ReactNode;
 }
 
 const containerVariants = {
@@ -25,7 +29,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
 };
 
-export function IdeaGrid({ ideas, viewMode, onSelectIdea }: IdeaGridProps) {
+export function IdeaGrid({ ideas, viewMode, onSelectIdea, getStatusBadge, getActionSlot }: IdeaGridProps) {
   // Group ideas by skill for skills view
   const skillGroups = useMemo(() => {
     if (viewMode !== "skills") return null;
@@ -94,7 +98,12 @@ export function IdeaGrid({ ideas, viewMode, onSelectIdea }: IdeaGridProps) {
             >
               {skillIdeas.map((idea) => (
                 <motion.div key={idea.id} variants={itemVariants}>
-                  <IdeaCard idea={idea} onSelect={onSelectIdea} />
+                  <IdeaCard
+                    idea={idea}
+                    onSelect={onSelectIdea}
+                    statusBadge={getStatusBadge?.(idea)}
+                    actionSlot={getActionSlot?.(idea)}
+                  />
                 </motion.div>
               ))}
             </motion.div>
@@ -114,7 +123,12 @@ export function IdeaGrid({ ideas, viewMode, onSelectIdea }: IdeaGridProps) {
     >
       {ideas.map((idea) => (
         <motion.div key={idea.id} variants={itemVariants}>
-          <IdeaCard idea={idea} onSelect={onSelectIdea} />
+          <IdeaCard
+            idea={idea}
+            onSelect={onSelectIdea}
+            statusBadge={getStatusBadge?.(idea)}
+            actionSlot={getActionSlot?.(idea)}
+          />
         </motion.div>
       ))}
     </motion.div>
