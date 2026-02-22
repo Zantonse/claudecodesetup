@@ -100,7 +100,7 @@ export function Sidebar() {
                     onClick={() => setMobileOpen(false)}
                     className={`flex-1 flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                       sectionActive
-                        ? "bg-primary-600/20 text-primary-400 shadow-[0_0_16px_rgba(124,58,237,0.25)] border-l-2 border-violet-500/70 pl-[10px]"
+                        ? "bg-primary-600/20 text-primary-400 shadow-[0_0_16px_rgba(124,58,237,0.3),_-3px_0_12px_rgba(124,58,237,0.3)] border-l-[3px] border-violet-500 pl-[9px]"
                         : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
                     }`}
                   >
@@ -140,7 +140,7 @@ export function Sidebar() {
                             onClick={() => setMobileOpen(false)}
                             className={`block px-3 py-1.5 rounded-lg text-sm transition-all duration-150 ${
                               childActive
-                                ? "bg-primary-600/20 text-primary-400 shadow-[0_0_10px_rgba(124,58,237,0.2)] border-l-2 border-violet-400/60 pl-[10px]"
+                                ? "bg-primary-600/20 text-primary-400 shadow-[0_0_10px_rgba(124,58,237,0.25),_-3px_0_10px_rgba(124,58,237,0.25)] border-l-[3px] border-violet-400 pl-[9px]"
                                 : "text-slate-500 hover:text-slate-200 hover:bg-white/5"
                             }`}
                           >
@@ -162,7 +162,7 @@ export function Sidebar() {
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                 active
-                  ? "bg-primary-600/20 text-primary-400 shadow-[0_0_16px_rgba(124,58,237,0.25)] border-l-2 border-violet-500/70 pl-[10px]"
+                  ? "bg-primary-600/20 text-primary-400 shadow-[0_0_16px_rgba(124,58,237,0.3),_-3px_0_12px_rgba(124,58,237,0.3)] border-l-[3px] border-violet-500 pl-[9px]"
                   : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
               }`}
             >

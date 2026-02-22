@@ -273,11 +273,11 @@ export default function IdeasPage() {
       />
 
       {/* Result count */}
-      <p className="text-sm text-slate-500 mb-4">
+      <p className="text-sm text-slate-300 mb-4">
         Showing{" "}
-        <span className="text-slate-300 font-medium">{filteredIdeas.length}</span>{" "}
+        <span className="text-white font-semibold">{filteredIdeas.length}</span>{" "}
         of{" "}
-        <span className="text-slate-300 font-medium">{ideas.length}</span>{" "}
+        <span className="text-white font-semibold">{ideas.length}</span>{" "}
         projects
       </p>
 

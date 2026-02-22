@@ -55,7 +55,7 @@ export function ProgressDashboard({ stats, ideas }: ProgressDashboardProps) {
   const completionPct = stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0;
 
   // SVG ring parameters
-  const radius = 40;
+  const radius = 48;
   const circumference = 2 * Math.PI * radius;
   const strokeOffset = circumference - (completionPct / 100) * circumference;
 
@@ -80,12 +80,12 @@ export function ProgressDashboard({ stats, ideas }: ProgressDashboardProps) {
         {/* Stats row + ring */}
         <div className="flex flex-col sm:flex-row items-center gap-6 flex-1">
           {/* Circular progress ring */}
-          <div className="relative flex-shrink-0" style={{ width: 104, height: 104 }}>
-            <svg width="104" height="104" className="-rotate-90">
+          <div className="relative flex-shrink-0" style={{ width: 120, height: 120 }}>
+            <svg width="120" height="120" className="-rotate-90">
               {/* Background track */}
               <circle
-                cx="52"
-                cy="52"
+                cx="60"
+                cy="60"
                 r={radius}
                 fill="none"
                 stroke="rgb(51 65 85 / 0.6)"
@@ -93,8 +93,8 @@ export function ProgressDashboard({ stats, ideas }: ProgressDashboardProps) {
               />
               {/* Progress arc */}
               <motion.circle
-                cx="52"
-                cy="52"
+                cx="60"
+                cy="60"
                 r={radius}
                 fill="none"
                 stroke="#10B981"
@@ -108,8 +108,8 @@ export function ProgressDashboard({ stats, ideas }: ProgressDashboardProps) {
             </svg>
             {/* Center text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-xl font-bold text-white">{completionPct}%</span>
-              <span className="text-xs text-slate-400">done</span>
+              <span className="text-2xl font-bold text-white">{completionPct}%</span>
+              <span className="text-xs text-slate-400 font-medium">done</span>
             </div>
           </div>
 

@@ -78,11 +78,11 @@ export default function WorkflowsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
             >
-              <GlassCard hover={false} className="p-0 overflow-hidden">
+              <GlassCard hover={false} className="p-0 overflow-hidden" style={{ borderLeftColor: "rgba(124, 58, 237, 0.7)", borderLeftWidth: "3px", borderLeftStyle: "solid" }}>
                 {/* Accordion header */}
                 <button
                   onClick={() => toggleExpanded(workflow.id)}
-                  className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-white/3 transition-colors duration-150"
+                  className="w-full flex items-center justify-between px-5 py-3 text-left hover:bg-white/3 transition-colors duration-150"
                   aria-expanded={isExpanded}
                 >
                   <div className="flex items-center gap-3 min-w-0">

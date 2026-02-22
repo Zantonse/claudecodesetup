@@ -2,6 +2,7 @@
 
 import { Sidebar } from "./Sidebar";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { ScrollToTop } from "./ScrollToTop";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -19,6 +20,8 @@ export function AppShell({ children }: AppShellProps) {
           {children}
         </div>
       </main>
+
+      <ScrollToTop />
     </div>
   );
 }

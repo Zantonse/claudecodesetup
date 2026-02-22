@@ -31,7 +31,11 @@ export function IdeaCard({ idea, onSelect, statusBadge, actionSlot }: IdeaCardPr
   return (
     <div
       className="glass-card p-5 cursor-pointer flex flex-col gap-3 h-full"
-      style={{ borderLeft: `4px solid ${borderColor}` }}
+      style={{
+        borderLeftColor: borderColor,
+        borderLeftWidth: "4px",
+        borderLeftStyle: "solid",
+      }}
       onClick={() => onSelect(idea)}
       role="button"
       tabIndex={0}

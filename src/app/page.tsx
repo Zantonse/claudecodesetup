@@ -72,14 +72,18 @@ export default function Home() {
           padding: "6rem 2rem",
         }}
       >
+        {/* Animated shifting gradient overlay */}
+        <div className="absolute inset-0 hero-animated-gradient pointer-events-none" />
+
         {/* Animated gradient mesh background */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.18) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 20%, rgba(79, 70, 229, 0.14) 0%, transparent 45%),
-              radial-gradient(ellipse at 60% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 45%)
+              radial-gradient(ellipse at 20% 50%, rgba(168, 85, 247, 0.30) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, 0.24) 0%, transparent 45%),
+              radial-gradient(ellipse at 60% 80%, rgba(6, 182, 212, 0.20) 0%, transparent 45%),
+              radial-gradient(ellipse at 50% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 70%)
             `,
           }}
         />
@@ -88,15 +92,15 @@ export default function Home() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
           <svg
             className="absolute orb-slow"
-            style={{ top: "15%", left: "8%", opacity: 0.15 }}
-            width="120"
-            height="120"
-            viewBox="0 0 120 120"
+            style={{ top: "10%", left: "6%", opacity: 0.20 }}
+            width="220"
+            height="220"
+            viewBox="0 0 220 220"
           >
-            <circle cx="60" cy="60" r="60" fill="url(#orb1)" />
+            <circle cx="110" cy="110" r="110" fill="url(#orb1)" />
             <defs>
               <radialGradient id="orb1" cx="40%" cy="40%">
-                <stop offset="0%" stopColor="#7C3AED" />
+                <stop offset="0%" stopColor="#A855F7" />
                 <stop offset="100%" stopColor="transparent" />
               </radialGradient>
             </defs>
@@ -104,12 +108,12 @@ export default function Home() {
 
           <svg
             className="absolute orb-medium"
-            style={{ top: "55%", right: "10%", opacity: 0.12 }}
-            width="90"
-            height="90"
-            viewBox="0 0 90 90"
+            style={{ top: "50%", right: "6%", opacity: 0.18 }}
+            width="200"
+            height="200"
+            viewBox="0 0 200 200"
           >
-            <circle cx="45" cy="45" r="45" fill="url(#orb2)" />
+            <circle cx="100" cy="100" r="100" fill="url(#orb2)" />
             <defs>
               <radialGradient id="orb2" cx="40%" cy="40%">
                 <stop offset="0%" stopColor="#06B6D4" />
@@ -120,15 +124,15 @@ export default function Home() {
 
           <svg
             className="absolute orb-fast"
-            style={{ bottom: "20%", left: "25%", opacity: 0.10 }}
-            width="60"
-            height="60"
-            viewBox="0 0 60 60"
+            style={{ bottom: "15%", left: "22%", opacity: 0.15 }}
+            width="140"
+            height="140"
+            viewBox="0 0 140 140"
           >
-            <circle cx="30" cy="30" r="30" fill="url(#orb3)" />
+            <circle cx="70" cy="70" r="70" fill="url(#orb3)" />
             <defs>
               <radialGradient id="orb3" cx="40%" cy="40%">
-                <stop offset="0%" stopColor="#4F46E5" />
+                <stop offset="0%" stopColor="#6366F1" />
                 <stop offset="100%" stopColor="transparent" />
               </radialGradient>
             </defs>
@@ -136,12 +140,12 @@ export default function Home() {
 
           <svg
             className="absolute orb-slow"
-            style={{ top: "10%", right: "20%", opacity: 0.08 }}
-            width="160"
-            height="160"
-            viewBox="0 0 160 160"
+            style={{ top: "5%", right: "18%", opacity: 0.16 }}
+            width="280"
+            height="280"
+            viewBox="0 0 280 280"
           >
-            <circle cx="80" cy="80" r="80" fill="url(#orb4)" />
+            <circle cx="140" cy="140" r="140" fill="url(#orb4)" />
             <defs>
               <radialGradient id="orb4" cx="50%" cy="50%">
                 <stop offset="0%" stopColor="#7C3AED" />
