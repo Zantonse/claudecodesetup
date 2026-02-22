@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* ─── Dark mode via class ────────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
+@theme {
+  /* Primary – Blue-violet */
+  --color-primary-500: #7C3AED;
+  --color-primary-600: #4F46E5;
+
+  /* Highlight – Electric cyan */
+  --color-highlight: #06B6D4;
+
+  /* Semantic */
+  --color-warning:  #F59E0B;
+  --color-success:  #10B981;
+  --color-danger:   #F43F5E;
+
+  /* Backgrounds */
+  --color-bg-dark:  #0F172A;
+  --color-bg-light: #F8FAFC;
+
+  /* Slate scale shortcuts */
+  --color-surface-dark:   #1E293B;
+  --color-surface-medium: #334155;
+  --color-surface-light:  #475569;
+
+  /* Font families */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* ─── Root / Theme Variables ────────────────────────────────────────────── */
+:root {
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+  --border:     rgba(15, 23, 42, 0.12);
+}
+
+.dark {
+  --background: #0F172A;
+  --foreground: #F1F5F9;
+  --border:     rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter, Arial, Helvetica, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ─── Glass Card ─────────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+}
+
+/* Light mode glass card */
+.light .glass-card,
+:root:not(.dark) .glass-card {
+  background: rgba(248, 250, 252, 0.8);
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+.light .glass-card:hover,
+:root:not(.dark) .glass-card:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+}
+
+/* ─── Gradient Text ──────────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 50%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Noise Overlay ──────────────────────────────────────────────────────── */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+}
+
+/* ─── Neon Glow ──────────────────────────────────────────────────────────── */
+.neon-glow {
+  filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.7))
+          drop-shadow(0 0 12px rgba(79, 70, 229, 0.4));
+}
+
+.neon-glow-cyan {
+  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.7))
+          drop-shadow(0 0 12px rgba(6, 182, 212, 0.4));
+}
