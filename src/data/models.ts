@@ -1,0 +1,130 @@
+import { ClaudeModel } from '@/lib/types';
+
+export const models: ClaudeModel[] = [
+  {
+    id: 'claude-opus-4-6',
+    name: 'Claude Opus 4.6',
+    modelId: 'claude-opus-4-6',
+    description:
+      'The most intelligent Claude model, built for tasks that demand deep reasoning, nuanced judgment, and sophisticated agentic behavior. Opus 4.6 excels at multi-step architecture decisions, complex refactors across large codebases, and situations where getting the answer exactly right matters more than speed.',
+    capabilities: ['coding', 'analysis', 'agents', 'extended-thinking', 'architecture', 'reasoning', 'nuanced-judgment'],
+    bestFor: [
+      'Complex architecture design and large-scale refactoring',
+      'Nuanced code analysis requiring deep domain understanding',
+      'Advanced agentic tasks with many interdependent steps',
+      'Security audits and vulnerability analysis',
+      'Explaining highly complex systems to non-technical stakeholders',
+    ],
+    speed: 'slow',
+    intelligence: 'highest',
+    tier: 'opus',
+  },
+  {
+    id: 'claude-sonnet-4-6',
+    name: 'Claude Sonnet 4.6',
+    modelId: 'claude-sonnet-4-6',
+    description:
+      'The best balance of intelligence and speed for everyday software development. Sonnet 4.6 handles real-world coding tasks, multi-turn agents, and enterprise workflows with high accuracy and reasonable latency. It is the recommended default for most Claude Code sessions.',
+    capabilities: ['coding', 'analysis', 'agents', 'enterprise-workflows', 'test-generation', 'debugging'],
+    bestFor: [
+      'Day-to-day coding, debugging, and code review',
+      'Multi-turn agentic workflows like feature development',
+      'Enterprise codebases with complex business logic',
+      'Test generation and refactoring at scale',
+      'API integrations and backend service development',
+    ],
+    speed: 'medium',
+    intelligence: 'high',
+    tier: 'sonnet',
+  },
+  {
+    id: 'claude-sonnet-4-5',
+    name: 'Claude Sonnet 4.5',
+    modelId: 'claude-sonnet-4-5',
+    description:
+      'A highly capable coding model tuned for real-world agentic development at scale. Sonnet 4.5 performs strongly on practical software engineering tasks and long-horizon agents that need to maintain coherent state across many tool calls.',
+    capabilities: ['coding', 'agents', 'long-horizon-tasks', 'tool-use', 'debugging'],
+    bestFor: [
+      'Long-horizon agents that span many files and tool calls',
+      'Coding at scale across large monorepos',
+      'Autonomous feature implementation with minimal prompting',
+      'Iterative debugging sessions requiring sustained context',
+      'CI/CD pipeline integration and automation scripts',
+    ],
+    speed: 'medium',
+    intelligence: 'high',
+    tier: 'sonnet',
+  },
+  {
+    id: 'claude-opus-4-5',
+    name: 'Claude Opus 4.5',
+    modelId: 'claude-opus-4-5',
+    description:
+      'Maximum intelligence for tasks that require premium reasoning quality. Opus 4.5 is the right choice when accuracy cannot be compromised — large-scale API migrations, critical security reviews, or complex algorithm design where a single wrong assumption is costly.',
+    capabilities: ['coding', 'analysis', 'agents', 'extended-thinking', 'reasoning', 'architecture'],
+    bestFor: [
+      'Maximum intelligence tasks where cost is secondary to correctness',
+      'Premium code analysis requiring exhaustive consideration of edge cases',
+      'Complex algorithm design and performance optimization',
+      'Critical security reviews for high-stakes systems',
+      'Large-scale API migrations with complex compatibility constraints',
+    ],
+    speed: 'slow',
+    intelligence: 'highest',
+    tier: 'opus',
+  },
+  {
+    id: 'claude-sonnet-4-0',
+    name: 'Claude Sonnet 4.0',
+    modelId: 'claude-sonnet-4-0',
+    description:
+      'A Sonnet-tier model with extended thinking support, enabling step-by-step reasoning for tasks that benefit from deliberate, sequential thought. Ideal when you need to see Claude work through a problem systematically before arriving at a solution.',
+    capabilities: ['coding', 'extended-thinking', 'reasoning', 'analysis', 'debugging'],
+    bestFor: [
+      'Extended thinking mode for problems that benefit from deliberate reasoning',
+      'Complex multi-constraint algorithm design',
+      'Debugging subtle logic errors in intricate control flow',
+      'Mathematical reasoning and proof-like code correctness arguments',
+      'Explaining decision rationale step by step',
+    ],
+    speed: 'medium',
+    intelligence: 'high',
+    tier: 'sonnet',
+  },
+  {
+    id: 'claude-haiku-4-5',
+    name: 'Claude Haiku 4.5',
+    modelId: 'claude-haiku-4-5',
+    description:
+      'The fastest Haiku model, designed for near-instant responses on simple, high-volume tasks. Haiku 4.5 is ideal for autocomplete, quick code lookups, syntax fixes, and any workflow where latency is the primary constraint.',
+    capabilities: ['coding', 'fast-responses', 'autocomplete', 'syntax-checking', 'simple-tasks'],
+    bestFor: [
+      'Near-instant responses for simple code questions',
+      'High-volume processing pipelines where cost matters',
+      'Quick syntax fixes and small, well-defined edits',
+      'Autocomplete-style interactions with very short context',
+      'Batch processing of repetitive code transformation tasks',
+    ],
+    speed: 'fast',
+    intelligence: 'standard',
+    tier: 'haiku',
+  },
+  {
+    id: 'claude-3-5-haiku-latest',
+    name: 'Claude 3.5 Haiku',
+    modelId: 'claude-3-5-haiku-latest',
+    description:
+      'The cost-effective Haiku option from the 3.5 generation. Claude 3.5 Haiku delivers fast, reliable responses for straightforward tasks and is well-suited for integration testing, lightweight automation, and scenarios where the Haiku 4.5 model is unavailable.',
+    capabilities: ['coding', 'fast-responses', 'simple-tasks', 'cost-effective', 'automation'],
+    bestFor: [
+      'Fast, cost-effective code assistance on well-defined tasks',
+      'Lightweight automation scripts with simple logic',
+      'Quick documentation lookups and code explanation',
+      'Integration tests and simple mock generation',
+      'High-frequency, low-complexity code generation',
+    ],
+    speed: 'fast',
+    intelligence: 'standard',
+    tier: 'haiku',
+  },
+];
