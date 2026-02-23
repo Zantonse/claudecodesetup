@@ -65,6 +65,7 @@ export function ProgressDashboard({ stats, ideas }: ProgressDashboardProps) {
     const total = ideas.filter((i) => i.category === cat).length;
     return { cat, total, label: CATEGORY_LABELS[cat], color: CATEGORY_COLORS[cat] };
   });
+  const maxCategoryCount = Math.max(...categoryBreakdown.map((c) => c.total), 1);
 
   return (
     <motion.div
@@ -168,7 +169,7 @@ export function ProgressDashboard({ stats, ideas }: ProgressDashboardProps) {
                   className="h-full rounded-full"
                   style={{ backgroundColor: color }}
                   initial={{ width: 0 }}
-                  animate={{ width: total > 0 ? "100%" : "0%" }}
+                  animate={{ width: total > 0 ? `${(total / maxCategoryCount) * 100}%` : "0%" }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 />
               </div>

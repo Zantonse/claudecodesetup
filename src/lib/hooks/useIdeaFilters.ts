@@ -18,12 +18,6 @@ export function useIdeaFilters() {
     return Array.from(skills).sort();
   }, []);
 
-  const allCategories = useMemo(() => {
-    const cats = new Set<string>();
-    ideas.forEach((idea) => cats.add(idea.category));
-    return Array.from(cats).sort();
-  }, []);
-
   // Filter ideas based on current filter state
   const filteredIdeas = useMemo<ProjectIdea[]>(() => {
     return ideas.filter((idea) => {
@@ -81,7 +75,6 @@ export function useIdeaFilters() {
     // Derived data
     filteredIdeas,
     allSkills,
-    allCategories,
     // Actions
     toggleSkill,
     setSelectedDifficulty,

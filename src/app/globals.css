@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
-/* ─── Dark mode via class ────────────────────────────────────────────────── */
+/* ─── Theme variants via class ───────────────────────────────────────────── */
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
 
 /* ─── Design Tokens ──────────────────────────────────────────────────────── */
 @theme {
@@ -48,6 +49,11 @@
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+.light {
+  color-scheme: light;
 }
 
 body {
@@ -95,17 +101,17 @@ h1, h2 {
   box-shadow: 0 0 24px rgba(124, 58, 237, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.06);
 }
 
-/* Light mode glass card */
-.light .glass-card,
-:root:not(.dark) .glass-card {
-  background: rgba(248, 250, 252, 0.8);
-  border-color: rgba(15, 23, 42, 0.1);
+/* ─── Light Mode Glass Card ──────────────────────────────────────────────── */
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.light .glass-card:hover,
-:root:not(.dark) .glass-card:hover {
-  border-color: rgba(124, 58, 237, 0.3);
-  box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+.light .glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* ─── Gradient Text ──────────────────────────────────────────────────────── */
@@ -186,11 +192,6 @@ h1, h2 {
   pointer-events: none;
 }
 
-/* ─── Smooth Scroll ──────────────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-}
-
 /* ─── Selection Color ────────────────────────────────────────────────────── */
 ::selection {
   background: rgba(99, 102, 241, 0.3);
@@ -235,19 +236,17 @@ main {
 .orb-medium { animation: float-medium 9s ease-in-out infinite; }
 .orb-fast { animation: float-fast 7s ease-in-out infinite; }
 
-/* ─── Glass Card Hover — Gradient Border ─────────────────────────────────── */
-/* (hover styles consolidated into the primary .glass-card:hover rule above) */
-
-/* ─── Light Mode Overrides ───────────────────────────────────────────────── */
-:where(.light) .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+/* ─── Light Mode Scrollbar ───────────────────────────────────────────────── */
+.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
 }
-:where(.light) .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ─── Light Mode Code Blocks ────────────────────────────────────────────── */
+.light .code-block-bg {
+  background: rgba(241, 245, 249, 0.8);
 }
 
 /* ─── Sidebar Gradient Line ──────────────────────────────────────────────── */

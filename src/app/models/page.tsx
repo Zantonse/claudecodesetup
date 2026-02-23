@@ -75,9 +75,11 @@ function ModelDetailCard({ model }: { model: ClaudeModel }) {
               {model.tier}
             </span>
           </div>
-          <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
-            {model.description}
-          </p>
+          {!expanded && (
+            <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
+              {model.description}
+            </p>
+          )}
         </div>
         <button
           className="flex-shrink-0 text-slate-500 hover:text-slate-200 transition-colors text-lg leading-none mt-0.5"

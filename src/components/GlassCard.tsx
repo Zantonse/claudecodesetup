@@ -20,6 +20,7 @@ export function GlassCard({ children, className = "", hover = true, onClick, sty
       onClick={onClick}
       style={style}
       whileHover={hover ? { y: -4, transition: { duration: 0.2 } } : undefined}
+      {...(onClick ? { role: "button", tabIndex: 0, onKeyDown: (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } } } : {})}
     >
       {children}
     </motion.div>

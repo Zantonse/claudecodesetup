@@ -76,7 +76,7 @@ export function IdeaDetailModal({ idea, onClose, actionSlot }: IdeaDetailModalPr
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
-              aria-label={idea.title}
+              aria-labelledby="modal-title"
             >
               {/* Close button */}
               <button
@@ -102,7 +102,7 @@ export function IdeaDetailModal({ idea, onClose, actionSlot }: IdeaDetailModalPr
               <div className="p-6 space-y-5">
                 {/* Title + badges */}
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-3 pr-8">
+                  <h2 id="modal-title" className="text-2xl font-bold text-white mb-3 pr-8">
                     {idea.title}
                   </h2>
                   <div className="flex flex-wrap items-center gap-2">

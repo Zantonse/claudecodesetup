@@ -82,7 +82,7 @@ export default function WorkflowsPage() {
                 {/* Accordion header */}
                 <button
                   onClick={() => toggleExpanded(workflow.id)}
-                  className="w-full flex items-center justify-between px-5 py-3 text-left hover:bg-white/3 transition-colors duration-150"
+                  className="w-full flex items-center justify-between px-5 py-3 text-left hover:bg-white/5 transition-colors duration-150"
                   aria-expanded={isExpanded}
                 >
                   <div className="flex items-center gap-3 min-w-0">

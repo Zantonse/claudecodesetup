@@ -52,16 +52,26 @@ export default function FundamentalsPage() {
       <GlassCard hover={false}>
         <h2 className="text-xl font-semibold text-slate-100 mb-3">Installation</h2>
         <p className="text-slate-400 mb-2 text-sm">
-          Install globally via npm (recommended) or Homebrew:
+          Install via the native installer (recommended) — it handles dependencies and auto-updates:
         </p>
-        <CodeBlock code="npm install -g @anthropic-ai/claude-code" language="bash" title="npm" />
-        <CodeBlock code="brew install claude-code" language="bash" title="Homebrew" />
+        <CodeBlock code="curl -fsSL https://claude.ai/install.sh | bash" language="bash" title="macOS / Linux (Recommended)" />
+        <CodeBlock code="irm https://claude.ai/install.ps1 | iex" language="bash" title="Windows (PowerShell)" />
+        <div className="mt-4 p-3 rounded-lg bg-slate-800/50 border border-amber-500/20">
+          <p className="text-xs text-amber-400 font-semibold mb-1">npm (legacy)</p>
+          <p className="text-xs text-slate-400 mb-2">
+            The npm method still works but is no longer recommended. The native installer auto-updates and avoids Node.js version issues.
+          </p>
+          <CodeBlock code="npm install -g @anthropic-ai/claude-code" language="bash" title="npm (requires Node.js 18+)" />
+        </div>
         <div className="mt-4 p-3 rounded-lg bg-slate-800/50 border border-slate-700/40">
           <p className="text-sm text-slate-400 font-semibold mb-1">Requirements</p>
           <ul className="text-sm text-slate-400 space-y-1 list-disc list-inside">
-            <li>Node.js 18 or later</li>
-            <li>Active Anthropic API key or Claude Max subscription</li>
+            <li>A Claude Pro, Max, Team, or Enterprise subscription — or an Anthropic API key</li>
           </ul>
+          <p className="text-xs text-slate-500 mt-2">
+            For detailed setup, troubleshooting, and subscription plans, see the{" "}
+            <a href="/installation" className="text-violet-400 hover:text-violet-300 underline">Installation &amp; Setup</a> page.
+          </p>
         </div>
       </GlassCard>
 

@@ -121,6 +121,7 @@ export function FilterBar({
           <button
             onClick={() => setViewMode("projects")}
             title="Projects view"
+            aria-label="Projects view"
             className={`p-1.5 rounded-md transition-colors ${
               viewMode === "projects"
                 ? "bg-primary-600/40 text-primary-400"
@@ -146,6 +147,7 @@ export function FilterBar({
           <button
             onClick={() => setViewMode("skills")}
             title="Skills view"
+            aria-label="Skills view"
             className={`p-1.5 rounded-md transition-colors ${
               viewMode === "skills"
                 ? "bg-primary-600/40 text-primary-400"

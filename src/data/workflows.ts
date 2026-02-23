@@ -507,4 +507,56 @@ export const workflows: Workflow[] = [
       },
     ],
   },
+  {
+    id: 'ci-cd-integration',
+    title: 'CI/CD Integration',
+    description:
+      'Run Claude Code non-interactively in CI/CD pipelines for automated code review, test generation, and deployment verification. Claude Code supports headless mode with structured output for scripting.',
+    category: 'setup',
+    claudeFeatures: ['Bash', 'Read', 'commands', 'settings'],
+    steps: [
+      {
+        title: 'Use Non-Interactive Mode',
+        description:
+          'The --print flag runs Claude Code in non-interactive mode — it processes a single prompt and exits. This is the foundation for CI/CD integration, where there is no terminal to interact with.',
+        command: 'claude --print "Run the test suite and report any failures"',
+        tip: 'Combine --print with shell exit codes for pass/fail decisions in your pipeline.',
+      },
+      {
+        title: 'Structure Output for Parsing',
+        description:
+          'Use --output-format json to get machine-readable output that your CI scripts can parse. This is useful for extracting specific results (test counts, lint errors) from Claude\'s response.',
+        command: 'claude --print --output-format json "List all TypeScript compiler errors in this project"',
+        tip: 'Pipe JSON output to jq for extracting specific fields in shell scripts.',
+      },
+      {
+        title: 'Pipe Input for Context',
+        description:
+          'Pipe file content or command output directly to Claude for analysis. This lets your CI pipeline feed Claude specific diffs, test results, or logs to review.',
+        command: 'git diff HEAD~1 | claude --print "Review this diff for bugs and security issues"',
+        tip: 'Pipe narrowly scoped input — a full repo dump wastes context. Feed only the relevant diff or log section.',
+      },
+      {
+        title: 'Continue Previous Sessions',
+        description:
+          'Use --continue to resume the most recent session or --resume with a session ID for a specific one. This is useful for multi-stage pipelines where later stages build on earlier analysis.',
+        command: '# Continue the most recent session\nclaude --continue --print "Now generate tests for the issues you found"\n\n# Resume a specific session by ID\nclaude --resume <session-id> --print "Apply the fixes you recommended"',
+        tip: 'Store the session ID from the first stage as a pipeline artifact so later stages can resume it.',
+      },
+      {
+        title: 'Set Up Permissions for CI',
+        description:
+          'Create a CI-specific .claude/settings.json that restricts Claude to read-only operations. In CI environments, you typically want Claude to analyze and report, not modify files directly.',
+        command: '# .claude/settings.json for CI\n# {\n#   "permissions": {\n#     "allow": ["Read", "Bash(npm test *)", "Bash(npm run lint *)"],\n#     "deny": ["Write", "Edit", "Bash(rm *)"]\n#   }\n# }',
+        tip: 'Use a separate settings file for CI by setting CLAUDE_CONFIG_DIR to a CI-specific directory.',
+      },
+      {
+        title: 'Integrate with GitHub Actions',
+        description:
+          'Claude Code can run as a GitHub Action that reviews PRs, comments on diffs, and responds to @claude mentions in PR comments. Set ANTHROPIC_API_KEY as a repository secret.',
+        command: '# In .github/workflows/claude-review.yml\n# uses: anthropics/claude-code-action@v1\n# with:\n#   anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}\n#   trigger_phrase: "@claude"',
+        tip: 'Limit the action to specific file patterns with path filters so Claude only reviews relevant changes.',
+      },
+    ],
+  },
 ];

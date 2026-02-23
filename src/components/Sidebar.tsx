@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useLocalStorage } from "@/lib/hooks/useLocalStorage";
 
 interface NavChild {
   label: string;
@@ -20,6 +21,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/", icon: "⌂" },
   { label: "Fundamentals", href: "/fundamentals", icon: "📖" },
+  { label: "Installation & Setup", href: "/installation", icon: "🛠" },
   {
     label: "Features",
     href: "/features",
@@ -44,7 +46,7 @@ const NAV_ITEMS: NavItem[] = [
 export function Sidebar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [featuresExpanded, setFeaturesExpanded] = useState(true);
+  const [featuresExpanded, setFeaturesExpanded] = useLocalStorage("sidebar-features-expanded", true);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";

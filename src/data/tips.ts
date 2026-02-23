@@ -70,6 +70,35 @@ export const tips: Tip[] = [
     },
   },
 
+  {
+    id: 'continue-and-resume-sessions',
+    title: 'Use --continue and --resume to Pick Up Where You Left Off',
+    content:
+      'Run claude --continue (alias: ccc) to resume your most recent session with full conversation history intact. Use claude --resume <session-id> to resume a specific older session. This lets you close your terminal, take a break, and come back without losing context — especially valuable for multi-day features.',
+    category: 'shortcuts',
+    codeExample: {
+      title: 'Session Continuation',
+      language: 'bash',
+      code: `# Resume the most recent session
+claude --continue
+# or use the alias
+ccc
+
+# List recent sessions to find a specific one
+claude sessions list
+
+# Resume a specific session by ID
+claude --resume abc123def`,
+    },
+  },
+  {
+    id: 'model-switching-mid-session',
+    title: 'Switch Models Mid-Session with /model',
+    content:
+      'Use /model to switch between Claude models without starting a new session. Start with Sonnet for fast iteration, then switch to Opus for a complex architecture decision, then back to Sonnet for implementation. Your conversation history carries over.',
+    category: 'shortcuts',
+  },
+
   // ─── Prompting ───────────────────────────────────────────────────────────────
 
   {
@@ -262,6 +291,34 @@ const [audit, tests, docs] = await Promise.all([
     content:
       'The /terminal-setup command configures shell completions, aliases (cc for claude, ccc for claude --continue), and a session status indicator in your PS1 prompt. Five minutes of setup pays dividends across every future session.',
     category: 'configuration',
+  },
+
+  {
+    id: 'writing-effective-claude-md',
+    title: 'Write an Effective CLAUDE.md with Three Tiers',
+    content:
+      'CLAUDE.md files cascade from global to project to local. Put personal preferences (indentation style, language choice) in ~/.claude/CLAUDE.md. Put project standards (tech stack, naming conventions, git workflow) in ./CLAUDE.md at the project root. Put team or environment overrides in .claude/CLAUDE.md. Keep each file concise — bullet points and headings, not paragraphs. Include a "Do Not" section for hard constraints Claude must respect.',
+    category: 'configuration',
+    codeExample: {
+      title: 'Three-Tier CLAUDE.md Strategy',
+      language: 'markdown',
+      code: `# ~/.claude/CLAUDE.md (global — all projects)
+## Preferences
+- TypeScript over JavaScript
+- 2-space indentation
+- Functional patterns over classes
+
+# ./CLAUDE.md (project root — this project)
+## Tech Stack
+- Next.js 15, Tailwind CSS, Prisma
+## Do Not
+- Modify package.json without discussion
+- Push directly to main
+
+# .claude/CLAUDE.md (local — team/env overrides)
+## Testing
+- Run \`npm test\` after every file change`,
+    },
   },
 
   // ─── Workflow ─────────────────────────────────────────────────────────────────
