@@ -171,8 +171,8 @@ export const wizardSteps: WizardStep[] = [
     explanation:
       "Here comes the fun part. Type the instruction below to give Claude its first real task. Watch what happens: Claude will think for a moment, then you'll see it writing code right in your terminal window. A file will appear in your my-first-project folder on your Desktop. This is Claude doing what it does — turning plain-English instructions into working code.",
     action: {
-      type: 'command',
-      command: 'Create a simple webpage that says "Hello! I made this with Claude Code!" and save it as index.html',
+      type: 'instruction',
+      instruction: 'Create a simple webpage that says "Hello! I made this with Claude Code!" and save it as index.html',
     },
     whatThisDoes:
       "You're giving Claude its first instruction. Claude will think about what you asked, write HTML code, and save it as a file called index.html in your project folder.",

@@ -144,9 +144,9 @@ export interface WizardStep {
   troubleshooting?: string;
 }
 
-export const PHASE_COLORS: Record<number, string> = {
+export const PHASE_COLORS = {
   1: '#06B6D4',  // cyan   — Opening the Terminal
   2: '#A855F7',  // purple — Installing Claude Code
   3: '#F59E0B',  // amber  — Logging In
   4: '#10B981',  // green  — Using Claude Code
-};
+} as const;
