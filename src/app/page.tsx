@@ -190,6 +190,12 @@ export default function Home() {
               Get Started
             </Link>
             <Link
+              href="/wizard"
+              className="px-6 py-3 rounded-lg bg-cyan-600/80 hover:bg-cyan-500/80 text-white font-semibold transition-all text-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_28px_rgba(6,182,212,0.5)]"
+            >
+              Guided Setup
+            </Link>
+            <Link
               href="/features"
               className="px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors text-sm border border-white/20 hover:border-white/40"
             >
