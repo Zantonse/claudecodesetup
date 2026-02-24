@@ -199,6 +199,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Beginner Wizard Entry Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.35, ease: "easeOut" }}
+      >
+        <GlassCard
+          hover={false}
+          style={{
+            borderLeft: "3px solid transparent",
+            borderImage: "linear-gradient(to bottom, #7C3AED, #06B6D4) 1",
+          }}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="space-y-1">
+              <h2 className="text-lg font-semibold gradient-text">New to coding?</h2>
+              <p className="text-sm text-slate-400 leading-relaxed max-w-xl">
+                Never used a terminal before? Our guided setup walks you through everything step by step — no experience needed.
+              </p>
+            </div>
+            <Link
+              href="/wizard"
+              className="shrink-0 text-sm font-semibold text-violet-400 hover:text-violet-300 hover:underline transition-colors whitespace-nowrap"
+            >
+              Start Guided Setup &rarr;
+            </Link>
+          </div>
+        </GlassCard>
+      </motion.div>
+
       {/* Quick-start Cards */}
       <section>
         <h2 className="text-xl font-semibold text-slate-300 mb-6" style={{ fontFamily: "var(--font-display, inherit)" }}>Quick Start</h2>
