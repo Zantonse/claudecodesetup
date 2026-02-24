@@ -123,3 +123,30 @@ export const CATEGORY_LABELS = {
   'data-api': 'Data & API',
   'learning': 'Learning',
 } as const;
+
+/* ─── Wizard ────────────────────────────────────────────────────────────────── */
+
+export interface WizardAction {
+  type: 'command' | 'instruction' | 'confirmation';
+  command?: string;
+  instruction?: string;
+  confirmLabel?: string;
+}
+
+export interface WizardStep {
+  id: string;
+  phase: number;
+  phaseTitle: string;
+  headline: string;
+  explanation: string;
+  action?: WizardAction;
+  whatThisDoes?: string;
+  troubleshooting?: string;
+}
+
+export const PHASE_COLORS: Record<number, string> = {
+  1: '#06B6D4',  // cyan   — Opening the Terminal
+  2: '#A855F7',  // purple — Installing Claude Code
+  3: '#F59E0B',  // amber  — Logging In
+  4: '#10B981',  // green  — Using Claude Code
+};
