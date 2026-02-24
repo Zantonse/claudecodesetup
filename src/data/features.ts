@@ -123,88 +123,153 @@ export const features: Feature[] = [
     title: 'Skills',
     slug: 'skills',
     icon: '🎯',
-    summary: 'Reusable agent instructions loaded on-demand to guide Claude through specialized tasks and methodologies.',
+    summary: 'Reusable agent instructions loaded on-demand to guide Claude through specialized tasks and methodologies — including a built-in skill-creator for building your own.',
     description:
-      'Skills are SKILL.md files stored in named subdirectories under .claude/skills/. When Claude invokes a skill by name, it loads the full markdown content as additional context for its current task. Skills support frontmatter for trigger conditions and metadata, enabling progressive disclosure — simple tasks get a short prompt, complex ones unlock detailed step-by-step methodology.',
+      'Skills are SKILL.md files stored in named subdirectories under .claude/skills/ or inside plugins. When Claude invokes a skill by name, it loads the full markdown content as additional context for its current task. Skills support frontmatter for trigger conditions and metadata, enabling progressive disclosure — simple tasks get a short prompt, complex ones unlock detailed step-by-step methodology. Claude Code includes a built-in skill-creator skill that guides you through building, structuring, and testing your own custom skills from scratch.',
     keyPoints: [
-      'Skills are SKILL.md files in .claude/skills/<name>/ subdirectories',
-      'Frontmatter defines trigger conditions, descriptions, and metadata',
+      'Skills are SKILL.md files in .claude/skills/<name>/ subdirectories or inside plugins under skills/',
+      'Frontmatter defines name, description with trigger phrases, and version metadata',
       'Loaded on-demand so they only consume context when needed',
-      'Can reference external files and code examples inline',
+      'Can include supporting files: references/, examples/, and scripts/ alongside SKILL.md',
       'Support rigid (prescriptive) and flexible (advisory) instruction styles',
-      'Invoked explicitly with /skill <name> or triggered automatically by Claude',
+      'Invoked explicitly with /skill <name> or triggered automatically by Claude when trigger phrases match',
+      'The built-in skill-creator skill (/skill skill-creator) walks you through creating a new skill end-to-end',
+      'Plugins can bundle skills that are distributed and installed via the plugin system',
     ],
     codeExamples: [
       {
-        title: 'TDD Skill Definition',
+        title: 'Skill Directory Structure',
+        language: 'bash',
+        code: `# Minimal skill — just a SKILL.md
+my-skill/
+  └── SKILL.md
+
+# Full skill with supporting files
+my-skill/
+  ├── SKILL.md          # Main skill instructions
+  ├── references/       # Background docs Claude can read
+  │   └── api-spec.md
+  ├── examples/         # Example inputs/outputs
+  │   └── sample.ts
+  └── scripts/          # Utility scripts the skill can invoke
+      └── validate.sh`,
+        description: 'A skill can be as simple as a single SKILL.md file, or include supporting directories for references, examples, and scripts.',
+      },
+      {
+        title: 'SKILL.md Frontmatter',
+        language: 'markdown',
+        code: `---
+name: deploy-checklist
+description: >
+  Use this skill when the user asks to "deploy",
+  "push to production", "release a new version",
+  or "run the deploy checklist". Guides a safe,
+  step-by-step production deployment.
+version: 1.0.0
+---
+
+# Production Deploy Checklist
+
+Before deploying, complete every step in order:
+
+## Pre-Deploy
+1. Run the full test suite: \`npm test\`
+2. Check for uncommitted changes: \`git status\`
+3. Verify you are on the correct branch
+
+## Deploy
+4. Build production assets: \`npm run build\`
+5. Deploy to staging first: \`npm run deploy:staging\`
+6. Smoke-test staging manually
+
+## Post-Deploy
+7. Deploy to production: \`npm run deploy:prod\`
+8. Monitor error rates for 15 minutes
+9. Announce in #releases channel`,
+        description: 'The frontmatter description should include specific trigger phrases users would say. Use third-person format and be concrete — "deploy to production" rather than "deployment tasks".',
+      },
+      {
+        title: 'Creating a Skill with skill-creator',
+        language: 'bash',
+        code: `# Invoke the built-in skill-creator
+/skill skill-creator
+
+# Claude will guide you through:
+# 1. Choosing a name and purpose for your skill
+# 2. Defining trigger phrases (when should it activate?)
+# 3. Writing the SKILL.md content
+# 4. Creating supporting files (references, examples, scripts)
+# 5. Testing the skill with representative prompts
+# 6. Iterating based on test results
+
+# You can also ask Claude directly:
+"Create a new skill that guides code reviews
+focused on accessibility and WCAG compliance"`,
+        description: 'The skill-creator skill is built into Claude Code. It walks you through the entire process of creating a new custom skill interactively.',
+      },
+      {
+        title: 'TDD Skill Example',
         language: 'markdown',
         code: `---
 name: tdd
-description: Test-Driven Development workflow
-triggers:
-  - "write tests"
-  - "TDD"
-  - "test first"
+description: >
+  This skill should be used when the user asks to
+  "write tests", "do TDD", "test first", or
+  "test-driven development".
+version: 1.0.0
 ---
 
 # TDD Methodology
 
 Follow this strict order for every feature:
 
-1. **Red** — Write a failing test that describes the desired behavior
-2. **Green** — Write the minimal code to make the test pass
-3. **Refactor** — Improve the code without changing its behavior
+1. **Red** — Write a failing test first
+2. **Green** — Write minimal code to make it pass
+3. **Refactor** — Improve without changing behavior
 
 ## Rules
-- Never write production code before a failing test exists
+- Never write production code before a failing test
 - Each cycle should take < 5 minutes
 - Commit after each Green phase`,
-        description: 'A skill that enforces the Red-Green-Refactor cycle for test-driven development, loaded whenever Claude is asked to write tests.',
-      },
-      {
-        title: 'Code Review Skill',
-        language: 'markdown',
-        code: `---
-name: code-review
-description: Systematic code review checklist
----
-
-# Code Review Checklist
-
-For every diff, check in this order:
-
-## Correctness
-- [ ] Logic matches the requirements
-- [ ] Edge cases are handled
-- [ ] No off-by-one errors
-
-## Security
-- [ ] No secrets hardcoded
-- [ ] Inputs are validated
-- [ ] SQL/shell injection prevented
-
-## Performance
-- [ ] No N+1 queries
-- [ ] Expensive ops are cached
-
-## Style
-- [ ] Naming is clear and consistent
-- [ ] No dead code`,
-        description: 'Provides a structured checklist Claude follows when reviewing code, ensuring nothing critical is missed.',
+        description: 'A skill that enforces the Red-Green-Refactor cycle for test-driven development.',
       },
       {
         title: 'Skill Invocation',
         language: 'bash',
-        code: `# Invoke a skill explicitly
+        code: `# Invoke a skill explicitly by name
 /skill tdd
 
 # Claude will automatically trigger skills whose
-# trigger conditions match your message
+# trigger phrases match your message
 "Let's do TDD to implement the new auth module"
 
 # List available skills
-/skill list`,
-        description: 'Skills can be triggered manually with a slash command or automatically when Claude detects matching keywords in your messages.',
+/skill list
+
+# Skills from plugins use namespaced names
+/skill my-plugin:deploy-checklist`,
+        description: 'Skills can be triggered manually with a slash command or automatically when Claude detects matching trigger phrases in your messages.',
+      },
+      {
+        title: 'Skill Writing Best Practices',
+        language: 'markdown',
+        code: `# Good: Specific trigger phrases
+description: >
+  Use when the user asks to "create a hook",
+  "add a PreToolUse hook", "validate tool use",
+  or mentions hook events.
+
+# Bad: Vague description
+description: Use this skill for hook-related tasks.
+
+# Good: Imperative body text (tells Claude what to do)
+"Run the test suite before making any changes."
+"Check for N+1 queries in every database call."
+
+# Bad: Declarative body text (describes but doesn't instruct)
+"This skill helps with testing."
+"Database queries should be optimized."`,
+        description: 'Write trigger phrases as exact quotes users would say. Write the body in imperative form — direct instructions, not descriptions.',
       },
     ],
     useCases: [
@@ -213,11 +278,18 @@ For every diff, check in this order:
       'Apply a security review checklist before every PR submission',
       'Guide new team members through deployment procedures step by step',
       'Activate domain-specific conventions when working in specialized codebases',
+      'Create a company-wide style guide skill that enforces coding standards',
+      'Build an onboarding skill that teaches new developers your project architecture',
+      'Package skills into plugins that the whole team installs for consistent workflows',
     ],
     tips: [
+      'Use /skill skill-creator to interactively build new skills — it handles structure, frontmatter, and testing for you',
       'Keep each skill focused on one methodology — avoid combining unrelated workflows in a single file',
+      'Write trigger phrases as exact quotes users would say, not abstract descriptions',
       'Use progressive disclosure: start with the minimal steps and add detail as conditional sections',
+      'Keep SKILL.md under 2,000 words — longer skills consume too much context and dilute focus',
       'Test your trigger conditions with representative prompts to avoid false positives',
+      'Include a references/ directory for background knowledge Claude can read when the skill is invoked',
       'Version skills in git alongside your code so the team always uses the same methodology',
     ],
   },
