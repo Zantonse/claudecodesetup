@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { AppShell } from "@/components/AppShell";
+import { LayoutWrapper } from "@/components/LayoutWrapper";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-display",
@@ -39,7 +39,7 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${dmSans.variable} ${jetbrainsMono.variable} antialiased bg-[#0F172A] text-slate-100 min-h-screen`}
       >
-        <AppShell>{children}</AppShell>
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
