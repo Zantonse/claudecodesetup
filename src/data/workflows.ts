@@ -559,4 +559,105 @@ export const workflows: Workflow[] = [
       },
     ],
   },
+  {
+    id: 'security-audit',
+    title: 'Security Audit',
+    description:
+      'Systematically review a codebase for security vulnerabilities using Claude Code. This workflow covers dependency scanning, code pattern analysis, secrets detection, and OWASP Top 10 checks to produce a prioritized security report.',
+    category: 'security',
+    claudeFeatures: ['Read', 'Bash', 'Grep', 'agents', 'commands'],
+    steps: [
+      {
+        title: 'Scan Dependencies for Known Vulnerabilities',
+        description:
+          'Start with the mechanical checks. Run your package manager\'s built-in audit tool to identify dependencies with known CVEs. Share the full output with Claude for triage.',
+        command: 'npm audit --json | claude --print "Triage these vulnerabilities by severity and recommend which to fix immediately vs. suppress"',
+        tip: 'Run npm audit fix --dry-run first to see what auto-fixes are available before committing to changes.',
+      },
+      {
+        title: 'Search for Hardcoded Secrets',
+        description:
+          'Ask Claude to scan the codebase for hardcoded API keys, tokens, passwords, and connection strings. Claude understands common patterns like base64-encoded keys and can distinguish real secrets from test fixtures.',
+        command: '"Search the entire codebase for hardcoded secrets, API keys, tokens, passwords, and connection strings. Check .env files, config files, and inline strings in source code."',
+        tip: 'Configure a PreToolUse hook that blocks Write operations to .env files so secrets are never committed by Claude.',
+      },
+      {
+        title: 'Review Authentication and Authorization',
+        description:
+          'Ask Claude to trace the authentication flow from login to session validation. Check for common flaws: missing CSRF protection, insecure token storage, improper session invalidation, and privilege escalation paths.',
+        tip: 'Ask Claude to identify every route that does NOT check authentication — missing auth checks on internal APIs are a common blind spot.',
+      },
+      {
+        title: 'Check for Injection Vulnerabilities',
+        description:
+          'Have Claude search for SQL injection, XSS, command injection, and path traversal patterns. Focus on anywhere user input flows into database queries, HTML rendering, shell commands, or file system operations.',
+        command: '"Find all places where user input reaches a database query, shell command, or HTML rendering without sanitization. Trace the data flow from request to execution."',
+        tip: 'Ask Claude to check ORM usage too — raw queries inside an ORM codebase are easy to miss and often lack parameterization.',
+      },
+      {
+        title: 'Analyze Error Handling and Information Disclosure',
+        description:
+          'Check that error responses do not leak stack traces, internal paths, or database schemas to clients. Verify that logging does not capture sensitive data like passwords or tokens.',
+        tip: 'Ask Claude to compare error responses in production mode vs development mode — many frameworks leak details unless explicitly configured.',
+      },
+      {
+        title: 'Generate the Security Report',
+        description:
+          'Ask Claude to compile all findings into a prioritized security report with severity ratings (Critical, High, Medium, Low), affected files, and recommended remediation steps for each issue.',
+        command: '"Write a security audit report in markdown with all findings categorized by severity. Include the affected file paths, a description of the risk, and a specific fix recommendation for each issue."',
+        tip: 'Save the report and commit it to a security/ directory so it serves as a baseline for future audits.',
+      },
+    ],
+  },
+
+  {
+    id: 'legacy-code-modernization',
+    title: 'Legacy Code Modernization',
+    description:
+      'Approach an unfamiliar or outdated codebase systematically: map its architecture, add safety nets, and modernize incrementally without breaking existing functionality.',
+    category: 'refactoring',
+    claudeFeatures: ['Read', 'Grep', 'agents', 'Bash', 'Write', 'Edit'],
+    steps: [
+      {
+        title: 'Map the Architecture with Explore Agent',
+        description:
+          'Before changing anything, use the Explore agent to map the codebase: entry points, data flows, dependency graph, and dead code. This produces a mental model of the system that prevents blind changes.',
+        command: '"Use the explore agent to map out this entire application: entry points, key modules, data flow, external dependencies, and any dead code or unused exports."',
+        tip: 'Save the Explore agent\'s output to a ARCHITECTURE.md file so the map persists across sessions.',
+      },
+      {
+        title: 'Add Characterization Tests',
+        description:
+          'Write tests that capture the current behavior before changing anything. These tests do not define correct behavior — they define the actual behavior, so you will know if a refactor changes something unexpectedly.',
+        command: '"Read the top 5 most-called functions in this codebase and write characterization tests that capture their current input/output behavior exactly, including edge cases."',
+        tip: 'Characterization tests should pass on the current code by definition. If any fail, the test is wrong, not the code.',
+      },
+      {
+        title: 'Identify Modernization Priorities',
+        description:
+          'Ask Claude to rank the codebase\'s technical debt by impact: what is actively causing bugs, what blocks new features, and what is merely ugly but functional. Not everything needs modernization.',
+        tip: 'Focus on code that changes frequently (check git log for hot files). Stable code that nobody touches is low priority regardless of age.',
+      },
+      {
+        title: 'Modernize One Module at a Time',
+        description:
+          'Pick the highest-impact module and modernize it in isolation. Update language features, replace deprecated APIs, improve types, and clean up patterns — but do not touch other modules in the same change.',
+        tip: 'Create a feature branch per module so each modernization can be reviewed and reverted independently.',
+      },
+      {
+        title: 'Update Dependencies Incrementally',
+        description:
+          'Upgrade one major dependency at a time. Run the full test suite after each upgrade. Ask Claude to check the changelog for breaking API changes before upgrading.',
+        command: '"Read the changelog for [package]@latest and identify all breaking changes since our current version. Then update our usage to match the new API."',
+        tip: 'Pin dependency versions in package.json with exact versions (no ^ or ~) during the modernization period to prevent surprise breakages.',
+      },
+      {
+        title: 'Verify and Document Changes',
+        description:
+          'Run the full characterization test suite after each round of changes. Update the ARCHITECTURE.md to reflect the new state. Document what changed and why in commit messages.',
+        command: 'npm test && git diff --stat',
+        tip: 'Keep a MODERNIZATION.md log of what was changed, why, and what remains — this helps the next engineer continue the work.',
+      },
+    ],
+  },
 ];

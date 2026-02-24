@@ -18,6 +18,8 @@ const LABEL_MAP: Record<string, string> = {
   workflows: "Workflows",
   tips: "Tips & Tricks",
   ideas: "Idea Generator",
+  levels: "Skill Levels",
+  installation: "Installation & Setup",
 };
 
 function segmentLabel(segment: string): string {

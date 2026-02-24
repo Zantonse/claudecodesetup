@@ -41,6 +41,12 @@ const quickStartCards = [
     description: "Browse and filter project ideas matched to your skill level.",
     href: "/ideas",
   },
+  {
+    emoji: "🏆",
+    title: "Skill Levels",
+    description: "Find your tier — Beginner to Expert — and see what to learn next.",
+    href: "/levels",
+  },
 ];
 
 const containerVariants = {

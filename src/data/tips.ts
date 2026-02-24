@@ -321,6 +321,149 @@ const [audit, tests, docs] = await Promise.all([
     },
   },
 
+  // ─── Advanced ─────────────────────────────────────────────────────────────────
+
+  {
+    id: 'use-headless-print-mode',
+    title: 'Use --print for Non-Interactive Scripting',
+    content:
+      'The --print flag runs Claude in headless mode: it processes a single prompt and exits with the result. This is the foundation for integrating Claude Code into shell scripts, CI pipelines, and automation tools. Combine with --output-format json for machine-readable output that can be piped to jq or parsed by other scripts.',
+    category: 'workflow',
+    codeExample: {
+      title: 'Headless Mode Examples',
+      language: 'bash',
+      code: `# Simple one-shot task
+claude --print "Explain what this function does" < src/utils/parse.ts
+
+# Pipe a diff for review
+git diff HEAD~1 | claude --print "Review this diff for bugs"
+
+# JSON output for scripting
+claude --print --output-format json "List all TODO comments in src/"
+
+# Chain with shell tools
+claude --print "Generate a migration for adding a user_roles table" > migrations/001_user_roles.sql`,
+    },
+  },
+  {
+    id: 'use-init-to-bootstrap-claude-md',
+    title: 'Use /init to Auto-Generate CLAUDE.md',
+    content:
+      'The /init command reads your project structure, dependencies, and configuration files, then generates a starter CLAUDE.md tailored to your project. It is faster and more accurate than writing one from scratch, and it catches patterns you might forget to document (like your test runner, linter config, or build system).',
+    category: 'configuration',
+    codeExample: {
+      title: 'Bootstrapping Project Memory',
+      language: 'bash',
+      code: `# Generate a starter CLAUDE.md for your project
+/init
+
+# Claude reads package.json, tsconfig, .eslintrc, etc.
+# and generates sections for:
+#   - Tech stack and framework
+#   - Build and test commands
+#   - Coding conventions detected from config
+#   - Project structure overview
+
+# Review and refine the generated file
+/memory`,
+    },
+  },
+  {
+    id: 'use-at-syntax-for-file-inclusion',
+    title: 'Use @ Syntax to Include Files in Prompts',
+    content:
+      'Prefix a file path with @ to embed its contents directly into your prompt. This is more precise than asking Claude to "read" a file — the content is available immediately in the prompt context. Use it for config files, type definitions, or reference code that Claude needs to see before starting work.',
+    category: 'prompting',
+    codeExample: {
+      title: 'File Inclusion with @',
+      language: 'bash',
+      code: `# Include a file directly in your prompt
+"Based on the types in @src/lib/types.ts, write a
+validation function for the User interface"
+
+# Include multiple reference files
+"Using the patterns in @src/api/users.ts, create a
+similar endpoint for @src/lib/types.ts#Order"
+
+# Include a config file for context
+"Given @tsconfig.json, why might this import fail?"`,
+    },
+  },
+  {
+    id: 'paste-images-for-visual-context',
+    title: 'Paste Images Directly for Visual Context',
+    content:
+      'Claude Code is multimodal — you can paste screenshots, mockups, error screenshots, and diagrams directly into the prompt. This is invaluable for UI work (paste a Figma screenshot and say "implement this"), debugging visual bugs, or showing Claude what an error looks like in a browser.',
+    category: 'prompting',
+  },
+  {
+    id: 'use-allowed-tools-for-scoped-sessions',
+    title: 'Use --allowedTools to Restrict Per-Session Capabilities',
+    content:
+      'The --allowedTools and --disallowedTools CLI flags let you restrict Claude\'s capabilities for a specific invocation without modifying settings.json. This is useful for read-only audit sessions, analysis tasks, or when you want Claude to plan without executing.',
+    category: 'configuration',
+    codeExample: {
+      title: 'Scoped Tool Permissions',
+      language: 'bash',
+      code: `# Read-only analysis session
+claude --allowedTools Read,Grep,Glob "Audit src/ for security issues"
+
+# Planning session — no file modifications
+claude --disallowedTools Write,Edit,Bash "Design the new auth system"
+
+# CI review — only read and report
+claude --print --allowedTools Read,Grep "Find all functions missing error handling in src/api/"`,
+    },
+  },
+  {
+    id: 'extended-thinking-for-complex-problems',
+    title: 'Prompt for Extended Thinking on Hard Problems',
+    content:
+      'For complex architectural decisions, tricky debugging, or multi-step reasoning, explicitly ask Claude to think deeply before responding. Phrases like "think step by step", "consider the trade-offs carefully", or "reason through this before suggesting a solution" activate more thorough analysis. Using Opus models amplifies this capability.',
+    category: 'prompting',
+  },
+  {
+    id: 'run-parallel-sessions-for-speed',
+    title: 'Run Parallel Claude Sessions for Independent Tasks',
+    content:
+      'Open multiple terminal tabs and run separate Claude sessions for independent tasks (e.g., tests in one, implementation in another, documentation in a third). Each session has its own context window, so they do not interfere with each other. This is the simplest form of parallelism and requires no agent configuration.',
+    category: 'workflow',
+    codeExample: {
+      title: 'Multi-Terminal Parallelism',
+      language: 'bash',
+      code: `# Terminal 1 — implementation
+claude "Implement the user authentication module"
+
+# Terminal 2 — tests (separate session, separate context)
+claude "Write comprehensive tests for src/api/users.ts"
+
+# Terminal 3 — documentation
+claude "Write API documentation for all endpoints in src/api/"
+
+# Each session runs independently with its own context`,
+    },
+  },
+  {
+    id: 'use-dangerously-skip-permissions-in-ci',
+    title: 'Use --dangerously-skip-permissions Only in Sandboxed Environments',
+    content:
+      'The --dangerously-skip-permissions flag auto-approves all tool calls without prompting. This is required for non-interactive CI environments but should never be used on a developer machine with access to production data. Always pair it with a sandboxed environment (Docker container, ephemeral CI runner) and restrictive --allowedTools.',
+    category: 'configuration',
+    codeExample: {
+      title: 'Safe CI Usage',
+      language: 'yaml',
+      code: `# GitHub Actions example — sandboxed runner
+- name: Claude Code Review
+  run: |
+    claude --print \\
+      --dangerously-skip-permissions \\
+      --allowedTools Read,Grep,Glob \\
+      "Review the code changes for security issues"
+  env:
+    ANTHROPIC_API_KEY: \${{ secrets.ANTHROPIC_API_KEY }}`,
+    },
+  },
+
   // ─── Workflow ─────────────────────────────────────────────────────────────────
 
   {

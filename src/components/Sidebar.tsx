@@ -41,6 +41,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Workflows", href: "/workflows", icon: "🔄" },
   { label: "Tips & Tricks", href: "/tips", icon: "💡" },
   { label: "Idea Generator", href: "/ideas", icon: "🚀" },
+  { label: "Skill Levels", href: "/levels", icon: "🏆" },
   { label: "Guided Setup", href: "/wizard", icon: "✨" },
 ];
 
