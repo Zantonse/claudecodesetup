@@ -257,6 +257,28 @@ main {
   animation: gradient-shift 8s ease infinite;
 }
 
+/* ─── Celebration Sparkle Particles ─────────────────────────────────────── */
+@keyframes sparkle-float {
+  0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+  20%  { opacity: 0.8; }
+  80%  { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #A855F7, #06B6D4);
+  animation: sparkle-float 3.5s ease-in-out infinite;
+  opacity: 0;
+}
+
+.sparkle-1 { width: 6px;  height: 6px;  left: 12%;  bottom: 8%;  animation-delay: 0s;    animation-duration: 3.2s; }
+.sparkle-2 { width: 4px;  height: 4px;  left: 30%;  bottom: 4%;  animation-delay: 0.8s;  animation-duration: 3.8s; }
+.sparkle-3 { width: 5px;  height: 5px;  left: 55%;  bottom: 10%; animation-delay: 1.4s;  animation-duration: 3.0s; }
+.sparkle-4 { width: 4px;  height: 4px;  left: 72%;  bottom: 5%;  animation-delay: 0.4s;  animation-duration: 4.0s; }
+.sparkle-5 { width: 6px;  height: 6px;  left: 88%;  bottom: 8%;  animation-delay: 1.8s;  animation-duration: 3.5s; }
+
 /* ─── Hero Animated Gradient ─────────────────────────────────────────────── */
 @keyframes hero-gradient-shift {
   0%   { background-position: 0% 50%; }
